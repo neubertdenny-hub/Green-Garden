@@ -6,26 +6,26 @@ const products = [
   {
     id: 1,
     name: 'Gartengeräte',
-    description: 'Hochwertige Werkzeuge für professionelle Gartenarbeit',
+    description: 'Professionelle Werkzeuge für müheloses Gärtnern – vom ersten Spatenstich bis zur Blütenpflege',
     icon: '🔧',
     image: '/gartengeraete.png',
   },
   {
     id: 2,
     name: 'Rasensamen',
-    description: 'Premium Saatmischungen für einen perfekten Rasen',
+    description: 'Premium Rasensamenmischungen für einen dichten, grünen Rasen das ganze Jahr',
     icon: '🌱',
   },
   {
     id: 3,
     name: 'Dünger',
-    description: 'Organische & mineralische Dünger für gesundes Wachstum',
+    description: 'Organische & mineralische Dünger – Nährstoffe für kräftiges Wachstum und leuchtende Farben',
     icon: '🌾',
   },
   {
     id: 4,
     name: 'Bewässerung',
-    description: 'Moderne Bewässerungssysteme und Zubehör',
+    description: 'Intelligente Bewässerungssysteme für sorgenfreies Gärtnern – auch im Urlaub',
     icon: '💧',
   },
 ];
@@ -48,23 +48,23 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-2xl">
               <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-white">
-                Entführe<br />deine Sinne
+                Ihr Garten ist<br />Ihr Zuhause
               </h1>
               <p className="text-lg md:text-xl text-gray-100 mb-10 leading-relaxed font-normal">
-                Mit hochwertigen Gartenprodukten & professioneller Beratung gestalten wir Ihren Traumgarten.
+                Hochwertige Gartenprodukte & fachkundige Beratung – für Anfänger und erfahrene Gärtner. Entdecken Sie, wie Sie aus Ihrem Garten eine grüne Wohlfühloase schaffen.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/offer"
                   className="px-8 py-3 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition text-center"
                 >
-                  Angebot anfragen
+                  Jetzt beraten lassen
                 </Link>
                 <Link
                   href="/contact"
                   className="px-8 py-3 border-2 border-white text-white font-semibold rounded hover:bg-white/10 transition"
                 >
-                  Kontakt
+                  Fachberatung anfordern
                 </Link>
               </div>
 
@@ -75,7 +75,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">✓</span>
-                  <span>5000+ zufriedene Kunden</span>
+                  <span>5000+ zufriedene Gärtner</span>
                 </div>
               </div>
             </div>
@@ -161,41 +161,44 @@ export default function Home() {
       {/* Benefits Section */}
       <section className="py-16 md:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            Warum GreenGarden?
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
+            Dein zuverlässiger Partner für den perfekten Garten
           </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Ob Anfänger oder erfahrener Gärtner – wir unterstützen Dich mit hochwertigen Produkten und Fachwissen
+          </p>
 
           <div className="grid md:grid-cols-4 gap-8">
-            <div className="bg-white p-6 rounded-lg border border-gray-200">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 hover:border-green-500 hover:shadow-lg transition">
               <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Qualitätsprodukte
+                ✓ Geprüfte Qualität
               </h3>
               <p className="text-gray-600">
-                Alle Produkte stammen von führenden Herstellern und durchlaufen strenge Qualitätsprüfungen.
+                Jedes Produkt stammt von führenden Herstellern und erfüllt höchste Qualitätsstandards – garantiert.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg border border-gray-200">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 hover:border-green-500 hover:shadow-lg transition">
               <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Fachberatung
+                💡 Fachberatung
               </h3>
               <p className="text-gray-600">
-                Kostenlose Beratung durch Gartenexperten für Ihre individuellen Projekte.
+                Kostenlose, persönliche Beratung für Dein Gartenprojekt – von Anfängertipps bis zu Profivarianten.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg border border-gray-200">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 hover:border-green-500 hover:shadow-lg transition">
               <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Schnelle Lieferung
+                🚚 Schnelle Lieferung
               </h3>
               <p className="text-gray-600">
-                Versand innerhalb von 2-3 Werktagen mit DHL Paketversand.
+                Versand innerhalb von 2-3 Werktagen mit DHL – damit Dein Gartenprojekt nicht stagniert.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg border border-gray-200">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 hover:border-green-500 hover:shadow-lg transition">
               <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Nachhaltig
+                🌱 Umweltbewusst
               </h3>
               <p className="text-gray-600">
-                Umweltfreundliche Produkte und nachhaltiger Versand für die Zukunft.
+                Nachhaltige Produkte und klimaneutraler Versand – für einen grünen Garten und grüne Erde.
               </p>
             </div>
           </div>
@@ -206,23 +209,23 @@ export default function Home() {
       <section className="py-16 md:py-24 bg-green-700 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Bereit für Ihren Traumgarten?
+            Bereit für Deinen perfekten Garten?
           </h2>
           <p className="text-lg text-green-100 mb-10">
-            Lassen Sie sich von unseren Experten beraten und erhalten Sie ein maßgeschneidertes Angebot.
+            Starte jetzt mit professioneller Beratung & hochwertigen Produkten – völlig unverbindlich.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/offer"
               className="px-10 py-3 bg-white text-green-700 font-semibold rounded hover:bg-gray-100 transition text-center"
             >
-              Angebot anfragen
+              Kostenlos Angebot anfordern
             </Link>
             <Link
               href="/contact"
               className="px-10 py-3 border-2 border-white text-white font-semibold rounded hover:bg-white/20 transition"
             >
-              Unverbindlich beraten
+              Experten-Beratung erhalten
             </Link>
           </div>
         </div>
