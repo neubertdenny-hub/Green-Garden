@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import Header from './components/Header';
-import ChatBot from './components/ChatBot';
+
+const ChatBot = dynamic(() => import('./components/ChatBot'), { ssr: false });
 
 const products = [
   {
@@ -124,10 +126,16 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product) => (
+            {products.map((product, idx) => {
+              const categoryLinks: Record<string, string> = {
+                'Rasensamen': '/products/rasensamen',
+              };
+              const href = categoryLinks[product.name] || `/offer?product=${product.name}`;
+
+              return (
               <Link
                 key={product.id}
-                href={`/offer?product=${product.name}`}
+                href={href}
                 className="group"
               >
                 {product.image ? (
@@ -164,7 +172,8 @@ export default function Home() {
                   </div>
                 )}
               </Link>
-            ))}
+            );
+            })}
           </div>
         </div>
       </section>
