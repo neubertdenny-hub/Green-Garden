@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Header from './components/Header';
+import ChatBot from './components/ChatBot';
 
 const products = [
   {
@@ -280,6 +281,9 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* ChatBot */}
+      <ChatBot />
     </div>
   );
 }
