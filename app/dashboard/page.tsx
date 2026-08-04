@@ -68,76 +68,76 @@ export default function DashboardPage() {
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
 
-      <div className="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="flex-1 py-6 md:py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
             Dashboard
           </h1>
-          <p className="text-gray-600 mb-8">
+          <p className="text-sm md:text-base text-gray-600 mb-6 md:mb-8">
             Übersicht über Anfragen, Angebote und Aufgaben
           </p>
 
           {/* Stats Cards */}
-          <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white rounded-xl shadow p-6 border-l-4 border-blue-500">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 text-sm font-medium">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
+            <div className="bg-white rounded-xl shadow p-4 md:p-6 border-l-4 border-blue-500">
+              <div className="flex items-center justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="text-gray-600 text-xs md:text-sm font-medium">
                     Offene Anfragen
                   </p>
-                  <p className="text-3xl font-bold text-gray-900 mt-2">
+                  <p className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">
                     {stats.openRequests}
                   </p>
                 </div>
-                <div className="text-4xl">📧</div>
+                <div className="text-3xl md:text-4xl flex-shrink-0">📧</div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow p-6 border-l-4 border-green-500">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 text-sm font-medium">Angebote</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-2">
+            <div className="bg-white rounded-xl shadow p-4 md:p-6 border-l-4 border-green-500">
+              <div className="flex items-center justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="text-gray-600 text-xs md:text-sm font-medium">Angebote</p>
+                  <p className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">
                     {stats.offers}
                   </p>
                 </div>
-                <div className="text-4xl">📄</div>
+                <div className="text-3xl md:text-4xl flex-shrink-0">📄</div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow p-6 border-l-4 border-purple-500">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 text-sm font-medium">
+            <div className="bg-white rounded-xl shadow p-4 md:p-6 border-l-4 border-purple-500">
+              <div className="flex items-center justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="text-gray-600 text-xs md:text-sm font-medium">
                     Geschätzter Umsatz
                   </p>
-                  <p className="text-3xl font-bold text-gray-900 mt-2">
+                  <p className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">
                     {stats.revenue}
                   </p>
                 </div>
-                <div className="text-4xl">💰</div>
+                <div className="text-3xl md:text-4xl flex-shrink-0">💰</div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow p-6 border-l-4 border-orange-500">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 text-sm font-medium">Aufgaben</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-2">
+            <div className="bg-white rounded-xl shadow p-4 md:p-6 border-l-4 border-orange-500">
+              <div className="flex items-center justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="text-gray-600 text-xs md:text-sm font-medium">Aufgaben</p>
+                  <p className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">
                     {stats.tasks}
                   </p>
                 </div>
-                <div className="text-4xl">✓</div>
+                <div className="text-3xl md:text-4xl flex-shrink-0">✓</div>
               </div>
             </div>
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-4 mb-6 border-b">
+          <div className="flex gap-2 md:gap-4 mb-6 border-b overflow-x-auto">
             <button
               onClick={() => setActiveTab('overview')}
-              className={`py-2 px-4 font-medium transition ${
+              className={`py-2 px-3 md:px-4 font-medium transition whitespace-nowrap text-sm md:text-base ${
                 activeTab === 'overview'
                   ? 'text-green-700 border-b-2 border-green-700'
                   : 'text-gray-600 hover:text-gray-900'
@@ -147,17 +147,17 @@ export default function DashboardPage() {
             </button>
             <button
               onClick={() => setActiveTab('contacts')}
-              className={`py-2 px-4 font-medium transition ${
+              className={`py-2 px-3 md:px-4 font-medium transition whitespace-nowrap text-sm md:text-base ${
                 activeTab === 'contacts'
                   ? 'text-green-700 border-b-2 border-green-700'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Kontaktanfragen ({contactRequests.length})
+              Kontakte ({contactRequests.length})
             </button>
             <button
               onClick={() => setActiveTab('offers')}
-              className={`py-2 px-4 font-medium transition ${
+              className={`py-2 px-3 md:px-4 font-medium transition whitespace-nowrap text-sm md:text-base ${
                 activeTab === 'offers'
                   ? 'text-green-700 border-b-2 border-green-700'
                   : 'text-gray-600 hover:text-gray-900'
@@ -222,12 +222,12 @@ export default function DashboardPage() {
           {activeTab === 'contacts' && (
             <div className="bg-white rounded-xl shadow overflow-hidden">
               {contactRequests.length === 0 ? (
-                <div className="p-6 text-center text-gray-600">
+                <div className="p-4 md:p-6 text-center text-gray-600">
                   Noch keine Kontaktanfragen
                 </div>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="w-full">
+                  <table className="w-full text-sm md:text-base">
                     <thead className="bg-gray-50 border-b">
                       <tr>
                         <th className="px-6 py-3 text-left text-sm font-bold text-gray-900">
@@ -277,12 +277,12 @@ export default function DashboardPage() {
           {activeTab === 'offers' && (
             <div className="bg-white rounded-xl shadow overflow-hidden">
               {offerRequests.length === 0 ? (
-                <div className="p-6 text-center text-gray-600">
+                <div className="p-4 md:p-6 text-center text-gray-600">
                   Noch keine Angebotsanfragen
                 </div>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="w-full">
+                  <table className="w-full text-sm md:text-base">
                     <thead className="bg-gray-50 border-b">
                       <tr>
                         <th className="px-6 py-3 text-left text-sm font-bold text-gray-900">
