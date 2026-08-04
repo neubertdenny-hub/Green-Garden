@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Header from '../components/Header';
 import { sendToN8N, saveToLocalStorage, OfferData } from '../lib/api';
@@ -12,7 +12,7 @@ const productOptions = [
   'Bewässerung',
 ];
 
-export default function OfferPage() {
+function OfferContent() {
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     product: searchParams.get('product') || 'Gartengeräte',
@@ -96,7 +96,7 @@ export default function OfferPage() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <div className="flex-1 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="flex-1 py-16 px-4 sm:px-6 lg:px-8 min-h-screen">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold text-center mb-2">
             Angebotsanfrage
@@ -244,5 +244,13 @@ export default function OfferPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function OfferPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Wird geladen...</div>}>
+      <OfferContent />
+    </Suspense>
   );
 }
