@@ -107,17 +107,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Products Section */}
-      <section className="py-16 md:py-24 bg-white">
+      {/* Featured Products Section */}
+      <section className="py-20 md:py-32 bg-gradient-to-b from-white to-green-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Unsere Produktkategorien
-          </h2>
-          <p className="text-gray-600 mb-12 text-lg">
-            Alles für Ihren Garten - von A bis Z
-          </p>
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-semibold mb-4">
+              ✨ Unsere Favoriten
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Alles für Deinen Traumgarten
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Von professionellen Gartengeräten bis zu hochwertigen Rasensamen – entdecke unser sorgsam kuratiertes Sortiment
+            </p>
+          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {products.map((product) => (
               <Link
                 key={product.id}
@@ -125,30 +130,35 @@ export default function Home() {
                 className="group"
               >
                 {product.image ? (
-                  <div className="relative overflow-hidden rounded-lg border border-gray-200 h-64 hover:border-green-600 hover:shadow-lg transition">
+                  <div className="relative overflow-hidden rounded-xl border-2 border-gray-200 h-72 hover:border-green-500 hover:shadow-2xl transition-all duration-300 bg-white">
                     <Image
                       src={product.image}
                       alt={product.name}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-300"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70 group-hover:to-black/50 transition-all duration-300"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                      <h3 className="text-lg font-bold mb-1">{product.name}</h3>
-                      <p className="text-sm text-gray-200">{product.description}</p>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 group-hover:to-black/60 transition-all duration-300"></div>
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-green-300 transition">{product.name}</h3>
+                      <p className="text-sm text-gray-200 mb-4">{product.description}</p>
+                      <span className="inline-block text-green-300 font-semibold text-sm group-hover:translate-x-2 transition-transform">
+                        Jetzt entdecken →
+                      </span>
                     </div>
                   </div>
                 ) : (
-                  <div className="bg-gray-50 p-8 rounded-lg border border-gray-200 hover:border-green-600 hover:shadow-lg transition h-full">
-                    <p className="text-4xl mb-4">{product.icon}</p>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
-                      {product.name}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-6">
-                      {product.description}
-                    </p>
-                    <p className="text-green-600 font-semibold text-sm">
-                      Jetzt anschauen →
+                  <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-green-50 to-green-100 p-8 border-2 border-green-200 hover:border-green-500 hover:shadow-2xl transition-all duration-300 h-72 flex flex-col justify-between group">
+                    <div>
+                      <p className="text-5xl mb-6 group-hover:scale-110 transition-transform origin-left">{product.icon}</p>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-700 transition">
+                        {product.name}
+                      </h3>
+                      <p className="text-gray-700 text-sm leading-relaxed">
+                        {product.description}
+                      </p>
+                    </div>
+                    <p className="text-green-600 font-bold text-sm group-hover:text-green-700 group-hover:translate-x-2 transition-transform">
+                      Jetzt entdecken →
                     </p>
                   </div>
                 )}
