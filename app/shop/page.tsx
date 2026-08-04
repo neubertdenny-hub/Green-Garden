@@ -2,7 +2,59 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
 import Header from '../components/Header';
+
+const galleryImages = [
+  '/rasensamen-gallery-1.jpg',
+  '/rasensamen-gallery-2.jpg',
+  '/rasensamen-gallery-3.jpg',
+  '/rasensamen-gallery-4.jpg',
+  '/rasensamen-gallery-5.jpg',
+  '/rasensamen-gallery-6.jpg',
+  '/rasensamen-gallery-7.jpg',
+];
+
+function ImageGallery() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  return (
+    <div className="mb-12">
+      {/* Main Image */}
+      <div className="relative w-full h-96 mb-6 rounded-lg overflow-hidden bg-gray-100">
+        <Image
+          src={galleryImages[activeIndex]}
+          alt="Rasensamen Produktbild"
+          fill
+          className="object-contain"
+          priority
+        />
+      </div>
+
+      {/* Thumbnails */}
+      <div className="flex gap-2 overflow-x-auto pb-2">
+        {galleryImages.map((img, idx) => (
+          <button
+            key={idx}
+            onClick={() => setActiveIndex(idx)}
+            className={`relative h-20 w-20 flex-shrink-0 rounded border-2 overflow-hidden transition ${
+              activeIndex === idx
+                ? 'border-green-600'
+                : 'border-gray-300 hover:border-gray-400'
+            }`}
+          >
+            <Image
+              src={img}
+              alt={`Bild ${idx + 1}`}
+              fill
+              className="object-contain"
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const products = [
   {
@@ -103,17 +155,8 @@ export default function ShopPage() {
 
             {/* Product Content */}
             <div className="md:col-span-2">
-              {/* Product Image */}
-              <div className="mb-12">
-                <div className="relative w-full h-96 mb-6 rounded-lg overflow-hidden bg-gray-100">
-                  <Image
-                    src={products[0].image}
-                    alt={products[0].name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
+              {/* Product Gallery */}
+              <ImageGallery />
 
               {/* Full SEO Content */}
               <article className="prose prose-lg max-w-none text-gray-700">
