@@ -8,6 +8,7 @@ const products = [
     name: 'Gartengeräte',
     description: 'Hochwertige Werkzeuge für professionelle Gartenarbeit',
     icon: '🔧',
+    image: '/gartengeraete.png',
   },
   {
     id: 2,
@@ -123,18 +124,34 @@ export default function Home() {
                 href={`/offer?product=${product.name}`}
                 className="group"
               >
-                <div className="bg-gray-50 p-8 rounded-lg border border-gray-200 hover:border-green-600 hover:shadow-lg transition h-full">
-                  <p className="text-4xl mb-4">{product.icon}</p>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {product.name}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-6">
-                    {product.description}
-                  </p>
-                  <p className="text-green-600 font-semibold text-sm">
-                    Jetzt anschauen →
-                  </p>
-                </div>
+                {product.image ? (
+                  <div className="relative overflow-hidden rounded-lg border border-gray-200 h-64 hover:border-green-600 hover:shadow-lg transition">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70 group-hover:to-black/50 transition-all duration-300"></div>
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                      <h3 className="text-lg font-bold mb-1">{product.name}</h3>
+                      <p className="text-sm text-gray-200">{product.description}</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-gray-50 p-8 rounded-lg border border-gray-200 hover:border-green-600 hover:shadow-lg transition h-full">
+                    <p className="text-4xl mb-4">{product.icon}</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      {product.name}
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-6">
+                      {product.description}
+                    </p>
+                    <p className="text-green-600 font-semibold text-sm">
+                      Jetzt anschauen →
+                    </p>
+                  </div>
+                )}
               </Link>
             ))}
           </div>
