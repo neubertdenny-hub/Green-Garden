@@ -17,11 +17,24 @@ const galleryImages = [
 
 function ImageGallery() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [zoomOpen, setZoomOpen] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setPosition({ x, y });
+  };
 
   return (
     <div className="mb-12">
-      {/* Main Image */}
-      <div className="relative w-full h-96 mb-6 rounded-lg overflow-hidden bg-gray-100">
+      {/* Main Image - Clickable for Zoom */}
+      <button
+        onClick={() => setZoomOpen(true)}
+        className="relative w-full h-96 mb-6 rounded-lg overflow-hidden bg-gray-100 hover:shadow-lg hover:opacity-90 transition cursor-pointer"
+      >
         <Image
           src={galleryImages[activeIndex]}
           alt="Rasensamen Produktbild"
@@ -29,7 +42,10 @@ function ImageGallery() {
           className="object-contain"
           priority
         />
-      </div>
+        <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded text-sm">
+          🔍 Zum Zoomen klicken
+        </div>
+      </button>
 
       {/* Thumbnails */}
       <div className="flex gap-2 overflow-x-auto pb-2">
@@ -52,6 +68,82 @@ function ImageGallery() {
           </button>
         ))}
       </div>
+
+      {/* Zoom Modal - Amazon Style */}
+      {zoomOpen && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+          <button
+            onClick={() => setZoomOpen(false)}
+            className="absolute top-4 right-4 text-white hover:bg-white/20 rounded-full p-2 transition"
+          >
+            ✕
+          </button>
+
+          <div className="flex flex-col lg:flex-row gap-8 max-w-7xl w-full">
+            {/* Main Zoom Area */}
+            <div
+              onMouseMove={handleMouseMove}
+              onMouseLeave={() => setZoomLevel(1)}
+              className="flex-1 relative bg-white rounded-lg overflow-hidden"
+              style={{ aspectRatio: '1' }}
+            >
+              <Image
+                src={galleryImages[activeIndex]}
+                alt="Zoomed Produktbild"
+                fill
+                className="object-contain"
+                style={{
+                  transform: `scale(${zoomLevel})`,
+                  transformOrigin: `${position.x}% ${position.y}%`,
+                  transition: 'transform 0.1s ease-out',
+                }}
+              />
+            </div>
+
+            {/* Thumbnails Sidebar */}
+            <div className="lg:w-24 flex lg:flex-col gap-2 overflow-x-auto lg:overflow-y-auto">
+              {galleryImages.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setActiveIndex(idx);
+                    setZoomLevel(1);
+                  }}
+                  className={`relative h-20 w-20 flex-shrink-0 rounded border-2 overflow-hidden transition ${
+                    activeIndex === idx
+                      ? 'border-green-600 ring-2 ring-green-600'
+                      : 'border-gray-300 hover:border-gray-400'
+                  }`}
+                >
+                  <Image
+                    src={img}
+                    alt={`Bild ${idx + 1}`}
+                    fill
+                    className="object-contain"
+                  />
+                </button>
+              ))}
+            </div>
+
+            {/* Controls */}
+            <div className="absolute bottom-4 left-4 right-4 lg:left-auto lg:right-auto lg:bottom-8 lg:left-1/2 lg:-translate-x-1/2 bg-black/60 text-white px-4 py-3 rounded-lg flex gap-4 items-center justify-center">
+              <button
+                onClick={() => setZoomLevel(Math.max(1, zoomLevel - 0.5))}
+                className="px-3 py-1 bg-white/20 hover:bg-white/30 rounded transition"
+              >
+                − Zoom Out
+              </button>
+              <span className="text-sm font-semibold">{Math.round(zoomLevel * 100)}%</span>
+              <button
+                onClick={() => setZoomLevel(Math.min(4, zoomLevel + 0.5))}
+                className="px-3 py-1 bg-white/20 hover:bg-white/30 rounded transition"
+              >
+                + Zoom In
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
