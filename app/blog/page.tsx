@@ -128,10 +128,16 @@ export default function BlogPage() {
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-300 py-16 mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
+          <div className="grid md:grid-cols-5 gap-12 mb-12">
             <div>
               <h4 className="text-white font-bold mb-4">GreenGarden</h4>
               <p className="text-sm">Premium Gartenprodukte & Tipps für deinen Garten.</p>
+              {/* Social Media */}
+              <div className="flex gap-4 mt-6">
+                <a href="https://instagram.com/greengarden" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-white transition" title="Instagram">📸</a>
+                <a href="https://facebook.com/greengarden" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-white transition" title="Facebook">👍</a>
+                <a href="https://tiktok.com/@greengarden" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-white transition" title="TikTok">🎵</a>
+              </div>
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">Navigation</h4>
@@ -149,7 +155,7 @@ export default function BlogPage() {
             <div>
               <h4 className="text-white font-bold mb-4">Rechtliches</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">Datenschutz</a></li>
+                <li><Link href="/datenschutz" className="hover:text-white transition">Datenschutz (DSGVO)</Link></li>
                 <li><a href="#" className="hover:text-white transition">Impressum</a></li>
               </ul>
             </div>
