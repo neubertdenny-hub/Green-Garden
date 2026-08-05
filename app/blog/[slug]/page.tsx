@@ -112,23 +112,6 @@ Ein weiterer häufiger Fehler ist unregelmäßiges Gießen. Die ersten zwei Woch
 
 📋 **TIPP:** Wähle die richtige Jahreszeit – Frühjahr (März-Mai) und Herbst (September-Oktober) sind ideal. Der Boden ist warm genug und es gibt natürliche Feuchtigkeit.
 
-## Häufig gestellte Fragen
-
-**Kann ich Premium Rasensamen das ganze Jahr über aussäen?**
-Theoretisch ja, aber die besten Ergebnisse erzielst du im Frühjahr und Herbst. Im Hochsommer braucht der Rasen konstante Bewässerung, im Winter keimen die Samen sehr schlecht.
-
-**Wie lange hält ein aus Rasensamen gezogener Rasen?**
-Bei korrekter Pflege kann dein Rasen viele Jahre halten – oft 10-20 Jahre oder länger. Es ist eine langfristige Investition.
-
-**Ist Premium Rasensamen teurer als normales Saatgut?**
-Nein! Das Preis-Leistungs-Verhältnis ist ausgezeichnet. Eine 2kg Packung kostet etwa 20-25 Euro und bepflanzt bis zu 80 m².
-
-**Kann ich Rasensamen auf bestehenden Rasen aussäen?**
-Ja, aber die Chancen auf Keimung sind geringer. Beste Ergebnisse erzielst du auf aufgelockertem Boden.
-
-**Was ist der Unterschied zwischen schnellkeimenden und normalen Rasensamen?**
-Schnellkeimende Sorten haben eine dünnere Samenschale und optimierte Keimfähigkeit. Sie keimen in 14 Tagen statt 3-4 Wochen und haben bessere Keimquoten.
-
 ## Fazit
 
 Kahle Stellen im Rasen sind **lösbar**. Mit Premium Rasensamen sparst du Zeit, Geld und Aufwand. In nur 14 Tagen sieht dein Rasen wieder grün aus – und nach 6 Wochen ist das Problem völlig gelöst.
