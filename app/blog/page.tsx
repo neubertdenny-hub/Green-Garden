@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import Header from '../components/Header';
 
 interface BlogPost {
@@ -10,10 +11,9 @@ interface BlogPost {
   date: string;
   category: string;
   readTime: string;
+  image: string;
 }
 
-// Blog-Posts werden automatisch aus app/blog/*.md geladen
-// Der erste Post über Rasensamen ist jetzt live!
 const blogPosts: BlogPost[] = [
   {
     slug: 'rasensamen-kahle-stellen-rasen',
@@ -22,9 +22,8 @@ const blogPosts: BlogPost[] = [
     date: '2026-08-05',
     category: 'Rasensamen',
     readTime: '8 min',
+    image: 'https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=1200',
   },
-  // Weitere Blog-Posts werden automatisch hinzugefügt
-  // Jeden Freitag um 10:00 UTC generiert der Vercel Cron einen neuen Post
 ];
 
 export default function BlogPage() {
@@ -33,50 +32,69 @@ export default function BlogPage() {
       <Header />
 
       {/* Hero */}
-      <section className="bg-gradient-to-r from-green-600 to-green-700 text-white py-16 px-4">
+      <section className="bg-white py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            🌱 Garten-Blog von GreenGarden
+          <Link href="/blog" className="text-gray-600 hover:text-green-700 mb-6 inline-block">
+            ← ZURÜCK ZUM BLOG
+          </Link>
+          <h1 className="text-6xl md:text-7xl font-black text-gray-900 mb-4">
+            GARTEN-BLOG.
           </h1>
-          <p className="text-xl text-green-100">
-            Tipps, Tricks & Lösungen für deinen perfekten Garten
+          <p className="text-xl text-gray-600 mb-2">
+            Jede Woche neuer Artikel. Direkt aus dem Garten.
+          </p>
+          <p className="text-gray-500">
+            Tipps & Tricks, praktische Anleitungen, neuste Trends — kurz, knackig, sofort umsetzbar. 12+ Artikel bisher.
           </p>
         </div>
       </section>
 
       {/* Blog Posts */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="space-y-8">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`}>
-                <article className="bg-white border-2 border-gray-200 hover:border-green-600 rounded-xl p-8 transition cursor-pointer hover:shadow-lg">
-                  <div className="flex items-start justify-between mb-4">
-                    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
-                      {post.category}
-                    </span>
-                    <span className="text-gray-500 text-sm">{post.readTime}</span>
+                <article className="group cursor-pointer overflow-hidden rounded-lg border-2 border-gray-200 hover:border-green-600 transition">
+                  {/* Bild oben */}
+                  <div className="relative h-48 md:h-56 overflow-hidden bg-gray-100">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition duration-300"
+                    />
                   </div>
 
-                  <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-700 transition">
-                    {post.title}
-                  </h2>
+                  {/* Content */}
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="inline-block px-3 py-1 bg-gray-100 text-gray-900 text-xs font-bold border border-gray-300">
+                        {post.category}
+                      </span>
+                      <span className="text-gray-500 text-xs font-semibold">⏱ {post.readTime}</span>
+                    </div>
 
-                  <p className="text-gray-600 mb-4">
-                    {post.excerpt}
-                  </p>
+                    <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-3 group-hover:text-green-700 transition line-clamp-2">
+                      {post.title}
+                    </h2>
 
-                  <div className="flex items-center justify-between pt-4 border-t">
-                    <span className="text-gray-500 text-sm">
-                      {new Date(post.date).toLocaleDateString('de-DE', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </span>
-                    <span className="text-green-600 font-semibold text-sm hover:text-green-700">
-                      Artikel lesen →
-                    </span>
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                      {post.excerpt}
+                    </p>
+
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                      <span className="text-xs text-gray-500">
+                        {new Date(post.date).toLocaleDateString('de-DE', {
+                          year: 'numeric',
+                          month: '2-digit',
+                          day: '2-digit',
+                        })}
+                      </span>
+                      <span className="text-green-600 font-bold text-xs group-hover:text-green-700">
+                        LESEN →
+                      </span>
+                    </div>
                   </div>
                 </article>
               </Link>
