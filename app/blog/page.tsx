@@ -57,12 +57,14 @@ export default function BlogPage() {
               <Link key={post.slug} href={`/blog/${post.slug}`}>
                 <article className="group cursor-pointer overflow-hidden rounded-lg border-2 border-gray-200 hover:border-green-600 transition">
                   {/* Bild oben */}
-                  <div className="relative h-48 md:h-56 overflow-hidden bg-gray-100">
-                    <Image
+                  <div className="relative h-48 md:h-56 overflow-hidden bg-gradient-to-r from-green-100 to-green-50">
+                    <img
                       src={post.image}
                       alt={post.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition duration-300"
+                      className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
                     />
                   </div>
 

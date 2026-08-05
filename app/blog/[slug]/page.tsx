@@ -219,12 +219,15 @@ export default function BlogPostPage() {
       <Header />
 
       {/* Hero Image */}
-      <section className="relative w-full h-96 md:h-[500px] bg-gray-200 overflow-hidden">
-        <Image
+      <section className="relative w-full h-96 md:h-[500px] bg-gradient-to-r from-green-100 to-green-50 overflow-hidden flex items-center justify-center">
+        <img
           src={post.image}
           alt={post.title}
-          fill
-          className="object-cover"
+          className="w-full h-full object-cover"
+          style={{ objectFit: 'cover' }}
+          onError={(e) => {
+            e.currentTarget.style.display = 'none';
+          }}
         />
       </section>
 
