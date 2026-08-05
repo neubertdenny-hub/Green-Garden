@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import dynamic from "next/dynamic";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -11,6 +12,8 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const ChatBot = dynamic(() => import("./components/ChatBot"), { ssr: false });
 
 export const metadata: Metadata = {
   title: "GreenGarden GmbH | Ihre Garten-Experten",
@@ -27,7 +30,10 @@ export default function RootLayout({
       lang="de"
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <body className="bg-white text-gray-900">{children}</body>
+      <body className="bg-white text-gray-900">
+        {children}
+        <ChatBot />
+      </body>
     </html>
   );
 }
