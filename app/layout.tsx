@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 const ChatBot = dynamic(() => import("./components/ChatBot"), { ssr: false });
+const CookieBanner = dynamic(() => import("./components/CookieBanner"), { ssr: false });
 
 export const metadata: Metadata = {
   title: "GreenGarden GmbH | Ihre Garten-Experten",
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body className="bg-white text-gray-900">
         {children}
         <ChatBot />
+        <CookieBanner />
       </body>
     </html>
   );
