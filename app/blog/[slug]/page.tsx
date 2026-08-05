@@ -29,7 +29,7 @@ const blogContent: Record<string, BlogPost> = {
     category: 'Rasensamen',
     readTime: '8 min',
     author: 'GreenGarden',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://cdn.pixabay.com/photo/2016/11/08/05/26/flowers-1807536_1280.jpg',
     content: `# Kahle Stellen im Rasen? So rettest du deinen Garten mit Premium Rasensamen
 
 Kennst du das Gefühl? Du sitzt auf deiner Terrasse, schaust auf deinen Garten – und siehst dort überall diese fiesen **kahlen Stellen im Rasen**, die einfach nicht verschwinden wollen. Der Rasen sieht unansehnlich aus. Und du fragst dich: "Wie kam es dazu, und noch wichtiger – wie werde ich es los?"
