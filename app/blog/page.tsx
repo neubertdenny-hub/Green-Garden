@@ -22,7 +22,7 @@ const blogPosts: BlogPost[] = [
     date: '2026-08-05',
     category: 'Rasensamen',
     readTime: '8 min',
-    image: 'https://cdn.pixabay.com/photo/2016/11/08/05/26/flowers-1807536_1280.jpg',
+    image: 'https://images.pexels.com/photos/4195325/pexels-photo-4195325.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&dpr=1',
   },
 ];
 
