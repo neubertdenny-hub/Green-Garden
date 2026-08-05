@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Header from '../components/Header';
+import { SocialLinks } from '../components/SocialLinks';
 
 interface BlogPost {
   slug: string;
@@ -132,11 +133,8 @@ export default function BlogPage() {
             <div>
               <h4 className="text-white font-bold mb-4">GreenGarden</h4>
               <p className="text-sm">Premium Gartenprodukte & Tipps für deinen Garten.</p>
-              {/* Social Media */}
-              <div className="flex gap-4 mt-6">
-                <a href="https://instagram.com/greengarden" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-white transition" title="Instagram">📸</a>
-                <a href="https://facebook.com/greengarden" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-white transition" title="Facebook">👍</a>
-                <a href="https://tiktok.com/@greengarden" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-white transition" title="TikTok">🎵</a>
+              <div className="mt-6">
+                <SocialLinks />
               </div>
             </div>
             <div>
