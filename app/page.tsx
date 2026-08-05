@@ -253,39 +253,41 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-300 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
+          <div className="grid md:grid-cols-5 gap-12 mb-12">
             <div>
-              <h4 className="text-white font-bold mb-4">GreenGarden GmbH</h4>
+              <h4 className="text-white font-bold mb-4">GreenGarden</h4>
               <p className="text-sm leading-relaxed">
-                Ihre Experten für hochwertige Gartenprodukte und professionelle Beratung seit 2010.
+                Premium Gartenprodukte & Tipps für deinen Garten.
               </p>
+              <div className="flex gap-4 mt-6">
+                <a href="https://instagram.com/greengarden" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-white transition" title="Instagram">📸</a>
+                <a href="https://facebook.com/greengarden" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-white transition" title="Facebook">👍</a>
+                <a href="https://tiktok.com/@greengarden" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-white transition" title="TikTok">🎵</a>
+              </div>
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">Navigation</h4>
               <ul className="space-y-2 text-sm">
                 <li><Link href="/" className="hover:text-white transition">Startseite</Link></li>
-                <li><Link href="/#products" className="hover:text-white transition">Produkte</Link></li>
-                <li><Link href="/offer" className="hover:text-white transition">Angebot</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition">Kontakt</Link></li>
+                <li><Link href="/blog" className="hover:text-white transition">Blog</Link></li>
+                <li><Link href="/shop" className="hover:text-white transition">Shop</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">Kontakt</h4>
               <p className="text-sm mb-1">📧 info@greengarden.de</p>
-              <p className="text-sm mb-1">📞 +49 123 456789</p>
-              <p className="text-sm">📍 Garten Str. 1, 12345 Stadt</p>
+              <p className="text-sm">📞 +49 123 456789</p>
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">Rechtliches</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">Datenschutz</a></li>
+                <li><Link href="/datenschutz" className="hover:text-white transition">Datenschutz (DSGVO)</Link></li>
                 <li><a href="#" className="hover:text-white transition">Impressum</a></li>
-                <li><a href="#" className="hover:text-white transition">AGB</a></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-700 pt-8 text-center text-sm">
-            <p>&copy; 2024 GreenGarden GmbH. Alle Rechte vorbehalten.</p>
+            <p>&copy; 2024 GreenGarden. Alle Rechte vorbehalten.</p>
           </div>
         </div>
       </footer>
