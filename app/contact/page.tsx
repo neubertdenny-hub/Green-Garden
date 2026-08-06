@@ -1,11 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Header from '@/app/components/Header';
 import { SocialLinks } from '@/app/components/SocialLinks';
 
 export default function ContactPage() {
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     customerName: '',
     customerEmail: '',
@@ -13,6 +15,20 @@ export default function ContactPage() {
     subject: '',
     message: ''
   });
+
+  // Pre-fill form from URL parameters
+  useEffect(() => {
+    const subject = searchParams.get('subject');
+    const message = searchParams.get('message');
+
+    if (subject || message) {
+      setFormData(prev => ({
+        ...prev,
+        subject: subject || prev.subject,
+        message: message || prev.message
+      }));
+    }
+  }, [searchParams]);
 
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');

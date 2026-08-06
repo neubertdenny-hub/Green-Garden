@@ -467,12 +467,16 @@ export default function ProductPage() {
               </div>
 
               {/* CTA Button */}
-              <Link
-                href={`/api/automation/offers?sku=${product.sku}&qty=${quantity}`}
-                className="block w-full px-6 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg rounded-lg transition text-center mb-4 shadow-lg hover:shadow-xl"
+              <button
+                onClick={() => {
+                  const message = `Ich interessiere mich für ein Angebot für:\n\nArtikel: ${product.name}\nSKU: ${product.sku}\nMenge: ${quantity} Stück\n\nBitte geben Sie mir ein Angebot!`;
+                  const encodedMessage = encodeURIComponent(message);
+                  window.location.href = `/contact?subject=Angebotsanfrage%20-%20${encodeURIComponent(product.name)}&message=${encodedMessage}`;
+                }}
+                className="w-full px-6 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg rounded-lg transition text-center mb-4 shadow-lg hover:shadow-xl cursor-pointer"
               >
                 💬 Angebot anfordern
-              </Link>
+              </button>
 
               {/* Total Price & Stock */}
               <div className="grid grid-cols-2 gap-4 mb-6">

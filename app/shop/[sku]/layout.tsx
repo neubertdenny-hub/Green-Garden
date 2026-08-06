@@ -2,11 +2,12 @@ import { Metadata } from 'next';
 import { products, getProductBySku } from '@/lib/products';
 
 interface Props {
-  params: { sku: string };
+  params: Promise<{ sku: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const product = getProductBySku(params.sku);
+  const { sku } = await params;
+  const product = getProductBySku(sku);
 
   if (!product) {
     return { title: 'Produkt nicht gefunden' };

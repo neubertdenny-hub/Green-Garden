@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { classifyEmail } from '@/lib/email-classifier';
 import { Inquiry, InquiryResponse } from '@/lib/types/inquiry';
+import { supabaseAdmin, isSupabaseReady } from '@/lib/supabase';
+import { sendAutoResponseViaResend } from '@/lib/email-resend';
 
 export async function POST(request: NextRequest) {
   try {
@@ -43,14 +45,59 @@ export async function POST(request: NextRequest) {
       classificationScore: 0.85, // Default confidence
     };
 
-    // 4. TODO: Save to Supabase
-    // const { data, error } = await supabase.from('inquiries').insert([inquiry]);
+    // 4. Save to Supabase
+    if (isSupabaseReady && supabaseAdmin) {
+      const { data, error } = await supabaseAdmin
+        .from('inquiries')
+        .insert([{
+          id: inquiry.id,
+          customer_name: inquiry.customerName,
+          customer_email: inquiry.customerEmail,
+          customer_phone: inquiry.customerPhone,
+          type: inquiry.type,
+          status: inquiry.status,
+          subject: inquiry.subject,
+          message: inquiry.message,
+          source: inquiry.source,
+          product_sku: inquiry.productSku,
+          product_name: inquiry.productName,
+          quantity: inquiry.quantity,
+          user_agent: inquiry.userAgent,
+          ip_address: inquiry.ipAddress,
+          classification_score: inquiry.classificationScore,
+        }]);
 
-    // 5. TODO: Send auto-response email
-    // await sendAutoResponse(inquiry);
+      if (error) {
+        console.error('❌ Supabase insert error:', error);
+      } else {
+        console.log('✅ Inquiry saved to Supabase:', inquiry.id);
+      }
+    } else {
+      console.warn('⚠️ Supabase not configured, inquiry not persisted');
+    }
 
-    // 6. TODO: Trigger classification handler
-    // await handleClassification(inquiry);
+    // 5. Send auto-response email via Resend
+    try {
+      await sendAutoResponseViaResend(inquiry);
+    } catch (emailError) {
+      console.error('❌ Email sending error:', emailError);
+    }
+
+    // 6. Log action
+    if (isSupabaseReady && supabaseAdmin) {
+      try {
+        await supabaseAdmin
+          .from('audit_log')
+          .insert([{
+            inquiry_id: inquiry.id,
+            action: 'inquiry_created',
+            actor: 'system',
+            details: { source, type: classifiedType }
+          }]);
+      } catch (err) {
+        console.error('❌ Audit log error:', err);
+      }
+    }
 
     console.log('✅ Inquiry received:', {
       id: inquiry.id,

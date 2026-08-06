@@ -1,8 +1,8 @@
 {
   "crons": [
     {
-      "path": "/api/generate-blog",
-      "schedule": "0 10 * * 5"
+      "path": "/api/cron/process-offers",
+      "schedule": "0 * * * *"
     }
   ]
 }

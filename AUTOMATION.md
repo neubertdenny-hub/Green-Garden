@@ -1,71 +1,78 @@
 # GreenGarden Automation System
 
-## Status: IN PROGRESS 🚀
+## Status: PHASE 2 IN PROGRESS 🚀
 
 Automation für Kundenanfragen, Angebotserstellung und Reklamationsbearbeitung.
 
 ---
 
-## ✅ GEBAUT (Phase 1)
+## ✅ GEBAUT (Phase 1 & 2)
 
-### 1. Kontaktformular (`/contact`)
-- ✅ `/app/contact/page.tsx` - Frontend Formular
-- ✅ `/app/api/contact/route.ts` - API zum Eingang
-- ✅ Email-Klassifizierung (nutzt `email-classifier.ts`)
-- ✅ Automatische Kategorisierung (Angebot/Frage/Reklamation)
+### Phase 1: Contact Form & Classification
+- ✅ `/app/contact/page.tsx` - Professional Kontaktformular
+- ✅ `/app/api/contact/route.ts` - API Endpoint mit Klassifizierung
+- ✅ Email-Klassifizierung (regex-basiert)
+- ✅ Auto-Kategorisierung (offer/question/complaint/feedback/other)
+- ✅ Product SKU & Quantity Extraction
 
-### 2. Types & Interfaces
-- ✅ `/lib/types/inquiry.ts` - Inquiry, InquiryStatus, OfferData
+### Phase 2: Database & Email Integration (LIVE)
+- ✅ Supabase Client (`/lib/supabase.ts`)
+- ✅ Database Schema (migrations.sql)
+  - ✅ inquiries table
+  - ✅ offers table
+  - ✅ audit_log table
+  - ✅ email_history table
+- ✅ Inquiry Persistence in Supabase
+- ✅ Resend Email API Integration (`/lib/email-resend.ts`)
+- ✅ Auto-Response Emails
+- ✅ Admin Dashboard mit Live Stats (`/app/admin/inquiries`)
+  - ✅ Real-time Inquiry Count
+  - ✅ Status Filtering (new/offer_sent/won/lost)
+  - ✅ Type Badges (offer/question/complaint)
 
-### 3. Admin Dashboard
-- ✅ `/app/admin/inquiries/page.tsx` - Dashboard Grundlage
-
-### 4. Angebots-Generator
+### Phase 3: Offer Automation (Ready)
 - ✅ `/lib/automation/offer-generator.ts` - Billbee Integration
-- ✅ `generateOfferFromInquiry()` - Auto-Angebote erstellen
-- ✅ `generateOfferEmailHtml()` - HTML Email Templates
+- ✅ `generateOfferFromInquiry()` - Auto-Angebote
+- ✅ `generateOfferEmailHtml()` - Professional Offer Templates
+- ⏳ Trigger nach Klassifizierung (ready, needs cron)
 
 ---
 
-## ⏳ TODO (Phase 2+3)
+## 🔄 IN PROGRESS (Phase 3)
 
-### Phase 2: Datenbank Integration
-- [ ] Supabase Setup
-  - [ ] Create `inquiries` table
-  - [ ] Create `offers` table
-  - [ ] Create `audit_log` table
-- [ ] Save inquiries to DB
-- [ ] Supabase Client Setup
-- [ ] Real-time subscriptions
+### Offer Workflows
+- [ ] Cron Job für Auto-Angebote
+- [ ] Billbee Price Sync
+- [ ] Manual Offer Creation (Admin)
+- [ ] Offer Expiration Tracking
 
-### Phase 3: Automation Workflows
-- [ ] Auto-response Email nach Inquiry
-- [ ] Auto-Angebot nach Klassifizierung
-- [ ] Email-Webhook für Incoming Emails
-- [ ] Chatbot Integration (Chat API)
-- [ ] Status Tracking & Updates
+### Email Webhooks
+- [ ] Incoming Email Handler
+- [ ] Email Classification from EML
+- [ ] Auto-Attach to Inquiry Thread
 
-### Phase 4: Admin Features
-- [ ] Inquiry List mit Live Updates
-- [ ] Manual Offer Creation
-- [ ] Status Management
-- [ ] Email Sending from Dashboard
-- [ ] Analytics & Reports
+### Chat Integration
+- [ ] Chatbot Endpoint
+- [ ] Real-time WebSocket
+- [ ] Chat Message Classification
 
 ---
 
-## ENVIRONMENT SETUP (SPÄTER)
+## ENVIRONMENT SETUP
 
 ```env
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=your_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key
+# Supabase (REQUIRED for Phase 2)
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
 
-# Resend (Email)
-RESEND_API_KEY=your_key
+# Resend Email (ACTIVE ✅)
+RESEND_API_KEY=re_xxx_your_api_key_here
 
 # Email Webhook
-EMAIL_WEBHOOK_KEY=your_key
+EMAIL_WEBHOOK_KEY=green_garden_webhook_key_123
+
+# Cron Secret
+CRON_SECRET=green_garden_cron_secret_456
 ```
 
 ---
