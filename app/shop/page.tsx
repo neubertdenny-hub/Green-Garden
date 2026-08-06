@@ -1,427 +1,246 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
-import { useState } from 'react';
 import Header from '../components/Header';
-
-const galleryImages = [
-  '/rasensamen-gallery-1.jpg',
-  '/rasensamen-gallery-2.jpg',
-  '/rasensamen-gallery-3.jpg',
-  '/rasensamen-gallery-4.jpg',
-  '/rasensamen-gallery-5.jpg',
-  '/rasensamen-gallery-6.jpg',
-  '/rasensamen-gallery-7.jpg',
-];
-
-function ImageGallery() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [zoomOpen, setZoomOpen] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(1);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setPosition({ x, y });
-  };
-
-  return (
-    <div className="mb-12">
-      {/* Main Image - Clickable for Zoom */}
-      <button
-        onClick={() => setZoomOpen(true)}
-        className="relative w-full h-96 mb-6 rounded-lg overflow-hidden bg-gray-100 hover:shadow-lg hover:opacity-90 transition cursor-pointer"
-      >
-        <Image
-          src={galleryImages[activeIndex]}
-          alt="Rasensamen Produktbild"
-          fill
-          className="object-contain"
-          priority
-        />
-        <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded text-sm">
-          🔍 Zum Zoomen klicken
-        </div>
-      </button>
-
-      {/* Thumbnails */}
-      <div className="flex gap-2 overflow-x-auto pb-2">
-        {galleryImages.map((img, idx) => (
-          <button
-            key={idx}
-            onClick={() => setActiveIndex(idx)}
-            className={`relative h-20 w-20 flex-shrink-0 rounded border-2 overflow-hidden transition ${
-              activeIndex === idx
-                ? 'border-green-600'
-                : 'border-gray-300 hover:border-gray-400'
-            }`}
-          >
-            <Image
-              src={img}
-              alt={`Bild ${idx + 1}`}
-              fill
-              className="object-contain"
-            />
-          </button>
-        ))}
-      </div>
-
-      {/* Zoom Modal - Amazon Style */}
-      {zoomOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
-          <button
-            onClick={() => setZoomOpen(false)}
-            className="absolute top-4 right-4 text-white hover:bg-white/20 rounded-full p-2 transition"
-          >
-            ✕
-          </button>
-
-          <div className="flex flex-col lg:flex-row gap-8 max-w-7xl w-full">
-            {/* Main Zoom Area */}
-            <div
-              onMouseMove={handleMouseMove}
-              onMouseLeave={() => setZoomLevel(1)}
-              className="flex-1 relative bg-white rounded-lg overflow-hidden"
-              style={{ aspectRatio: '1' }}
-            >
-              <Image
-                src={galleryImages[activeIndex]}
-                alt="Zoomed Produktbild"
-                fill
-                className="object-contain"
-                style={{
-                  transform: `scale(${zoomLevel})`,
-                  transformOrigin: `${position.x}% ${position.y}%`,
-                  transition: 'transform 0.1s ease-out',
-                }}
-              />
-            </div>
-
-            {/* Thumbnails Sidebar */}
-            <div className="lg:w-24 flex lg:flex-col gap-2 overflow-x-auto lg:overflow-y-auto">
-              {galleryImages.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => {
-                    setActiveIndex(idx);
-                    setZoomLevel(1);
-                  }}
-                  className={`relative h-20 w-20 flex-shrink-0 rounded border-2 overflow-hidden transition ${
-                    activeIndex === idx
-                      ? 'border-green-600 ring-2 ring-green-600'
-                      : 'border-gray-300 hover:border-gray-400'
-                  }`}
-                >
-                  <Image
-                    src={img}
-                    alt={`Bild ${idx + 1}`}
-                    fill
-                    className="object-contain"
-                  />
-                </button>
-              ))}
-            </div>
-
-            {/* Controls */}
-            <div className="absolute bottom-4 left-4 right-4 lg:left-auto lg:right-auto lg:bottom-8 lg:left-1/2 lg:-translate-x-1/2 bg-black/60 text-white px-4 py-3 rounded-lg flex gap-4 items-center justify-center">
-              <button
-                onClick={() => setZoomLevel(Math.max(1, zoomLevel - 0.5))}
-                className="px-3 py-1 bg-white/20 hover:bg-white/30 rounded transition"
-              >
-                − Zoom Out
-              </button>
-              <span className="text-sm font-semibold">{Math.round(zoomLevel * 100)}%</span>
-              <button
-                onClick={() => setZoomLevel(Math.min(4, zoomLevel + 0.5))}
-                className="px-3 py-1 bg-white/20 hover:bg-white/30 rounded transition"
-              >
-                + Zoom In
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-const products = [
-  {
-    id: 1,
-    name: 'Premium Rasensamen schnellkeimend 2 kg',
-    category: 'Rasensamen',
-    price: 19.97,
-    image: 'https://images-na.ssl-images-amazon.com/images/I/81FvLqWJK2L._AC_SX679_.jpg',
-    asin: 'B0H942JJCG',
-    coverage: '80 m²',
-    keimtime: '14 Tage',
-    rating: 4.8,
-    reviews: 245,
-  },
-];
+import { SocialLinks } from '../components/SocialLinks';
+import { products, getAllCategories, getProductPrice } from '@/lib/products';
+import { useState } from 'react';
 
 export default function ShopPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [cart, setCart] = useState<{ productId: string; quantity: number }[]>([]);
+
+  const filteredProducts = selectedCategory
+    ? products.filter(p => p.category === selectedCategory)
+    : products;
+
+  const categories = getAllCategories();
+
+  const handleAddToCart = (productId: string) => {
+    setCart(prev => {
+      const existing = prev.find(item => item.productId === productId);
+      if (existing) {
+        return prev.map(item =>
+          item.productId === productId
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+      return [...prev, { productId, quantity: 1 }];
+    });
+  };
+
+  const cartTotal = cart.reduce((sum, item) => {
+    const product = products.find(p => p.id === item.productId);
+    if (!product) return sum;
+    const { totalPrice } = getProductPrice(product, item.quantity);
+    return sum + totalPrice;
+  }, 0);
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <Header />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-600 to-green-700 text-white py-12 px-4">
+      {/* Hero */}
+      <section className="bg-white border-b border-gray-200 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            GreenGarden Shop
-          </h1>
-          <p className="text-xl text-green-100">
-            Premium Gartenprodukte für deinen perfekten Garten
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">Shop</h1>
+          <p className="text-xl text-gray-600 max-w-2xl">
+            Alle Premium-Produkte für deinen Garten – hochwertig, zuverlässig und schnell geliefert.
           </p>
         </div>
       </section>
 
-      {/* Shop Content */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      {/* Shop Layout */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          {/* Product Grid */}
-          <div className="grid md:grid-cols-3 gap-12">
-            {/* Product Details */}
-            <div className="md:col-span-1">
-              <div className="bg-gray-50 p-6 rounded-lg sticky top-24">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                  {products[0].name}
-                </h2>
-
-                {/* Rating */}
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="flex text-yellow-400">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className="text-lg">★</span>
-                    ))}
-                  </div>
-                  <span className="text-gray-600">
-                    {products[0].rating} ({products[0].reviews} Bewertungen)
-                  </span>
-                </div>
-
-                {/* Price */}
-                <div className="mb-6">
-                  <p className="text-gray-600 mb-1">Preis (inkl. 7% MwSt):</p>
-                  <p className="text-4xl font-bold text-green-600">
-                    €{products[0].price.toFixed(2)}
-                  </p>
-                </div>
-
-                {/* Key Info */}
-                <div className="space-y-3 mb-8 pb-8 border-b">
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl">📦</span>
-                    <div>
-                      <p className="font-semibold text-gray-900">Ergiebigkeit</p>
-                      <p className="text-gray-600">{products[0].coverage}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl">⏱️</span>
-                    <div>
-                      <p className="font-semibold text-gray-900">Keimzeit</p>
-                      <p className="text-gray-600">{products[0].keimtime}</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* CTA Button */}
-                <a
-                  href={`https://amazon.de/dp/${products[0].asin}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg text-center transition"
+          <div className="grid lg:grid-cols-4 gap-8">
+            {/* Sidebar - Kategorien */}
+            <div className="lg:col-span-1">
+              <div className="bg-white border border-gray-200 rounded-lg p-6 sticky top-20">
+                <h3 className="text-lg font-bold text-gray-900 mb-6">Kategorien</h3>
+                <button
+                  onClick={() => setSelectedCategory(null)}
+                  className={`block w-full text-left px-4 py-3 mb-2 rounded-lg transition ${
+                    selectedCategory === null
+                      ? 'bg-emerald-600 text-white font-semibold'
+                      : 'text-gray-700 hover:bg-gray-50'
+                  }`}
                 >
-                  🛒 Bei Amazon kaufen
-                </a>
-                <p className="text-xs text-gray-600 text-center mt-2">
-                  Sichere Amazon-Zahlung • Versand in 1-2 Tagen
-                </p>
+                  Alle Produkte
+                </button>
+                {categories.map(category => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`block w-full text-left px-4 py-3 mb-2 rounded-lg transition ${
+                      selectedCategory === category
+                        ? 'bg-emerald-600 text-white font-semibold'
+                        : 'text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
               </div>
+
+              {/* Cart Summary */}
+              {cart.length > 0 && (
+                <div className="mt-6 bg-white border border-gray-200 rounded-lg p-6">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">Warenkorb</h3>
+                  <div className="space-y-2 mb-4 max-h-48 overflow-y-auto">
+                    {cart.map(item => {
+                      const product = products.find(p => p.id === item.productId);
+                      if (!product) return null;
+                      return (
+                        <div key={item.productId} className="text-sm">
+                          <p className="font-semibold text-gray-900">{product.name}</p>
+                          <p className="text-gray-600">{item.quantity}x</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="border-t border-gray-200 pt-4">
+                    <p className="text-sm text-gray-600 mb-2">Gesamt:</p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {cartTotal.toFixed(2)} EUR
+                    </p>
+                  </div>
+                  <button className="w-full mt-4 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition">
+                    Zur Kasse
+                  </button>
+                </div>
+              )}
             </div>
 
-            {/* Product Content */}
-            <div className="md:col-span-2">
-              {/* Product Gallery */}
-              <ImageGallery />
+            {/* Products Grid */}
+            <div className="lg:col-span-3">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredProducts.map(product => {
+                  const { unitPrice, totalPrice } = getProductPrice(product, 1);
+                  return (
+                    <Link
+                      key={product.id}
+                      href={`/shop/${product.sku}`}
+                      className="bg-white border-2 border-gray-200 rounded-lg overflow-hidden hover:border-green-600 hover:shadow-lg transition group block"
+                    >
+                      {/* Product Image */}
+                      <div className="relative h-48 bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center overflow-hidden">
+                        <div className="text-6xl opacity-30 group-hover:scale-110 transition">
+                          🌱
+                        </div>
+                        <div className="absolute top-3 right-3 px-3 py-1 bg-green-600 text-white text-xs font-bold rounded">
+                          {product.category}
+                        </div>
+                      </div>
 
-              {/* Full SEO Content */}
-              <article className="prose prose-lg max-w-none text-gray-700">
-                <h1 className="text-4xl font-bold text-gray-900 mb-6">
-                  Premium Rasensamen schnellkeimend – Der Weg zu deinem perfekten Rasen
-                </h1>
+                      {/* Product Info */}
+                      <div className="p-4">
+                        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-green-700 transition">
+                          {product.name}
+                        </h3>
 
-                <p className="text-lg leading-relaxed mb-6">
-                  Ein dichter, grüner Rasen ist der Traum vieler Gartenbesitzer. Doch Kahlfraßstellen,
-                  Moosflecken und kahle Stellen durch Belastung machen diesen Traum oft zur Herausforderung.
-                  Genau hier setzen Premium Rasensamen schnellkeimend an – eine hochwertige Lösung für
-                  alle, die ihren Rasen reparieren, verdichten oder von Grund auf neu anlegen möchten.
-                </p>
+                        <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                          {product.description}
+                        </p>
 
-                <div className="bg-green-50 border-l-4 border-green-600 p-6 my-8">
-                  <p className="font-semibold text-gray-900 mb-2">💡 Rasensamen für jeden Gärtner</p>
-                  <p className="text-gray-700">
-                    Egal ob Anfänger oder erfahrener Gärtner – diese Premium Rasensamen bieten
-                    die perfekte Lösung für Rasenreparatur und Nachsaat. Mit einer Keimzeit von nur 14 Tagen
-                    erlebst du schnell sichtbare Erfolge.
-                  </p>
+                        {/* Price */}
+                        <div className="mb-4 pb-4 border-b-2 border-gray-200">
+                          <p className="text-2xl font-bold text-green-700">
+                            {unitPrice.toFixed(2)} EUR
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            💰 Ab 15 Stück: 10% Rabatt
+                          </p>
+                        </div>
+
+                        {/* Stock Status */}
+                        <div className="mb-4">
+                          {product.inStock ? (
+                            <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">
+                              ✓ Lagernd
+                            </span>
+                          ) : (
+                            <span className="inline-block px-3 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded">
+                              Nicht verfügbar
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Add to Cart Button */}
+                        <button
+                          onClick={() => handleAddToCart(product.id)}
+                          disabled={!product.inStock}
+                          className="w-full px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-300 text-white font-bold rounded-lg transition"
+                        >
+                          {product.inStock ? '🛒 In den Warenkorb' : 'Nicht verfügbar'}
+                        </button>
+
+                        {/* SKU */}
+                        <p className="text-xs text-gray-400 mt-3">SKU: {product.sku}</p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {filteredProducts.length === 0 && (
+                <div className="text-center py-12">
+                  <p className="text-gray-500 text-lg">Keine Produkte in dieser Kategorie.</p>
                 </div>
-
-                <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-4">
-                  Warum Rasensamen die perfekte Lösung sind
-                </h2>
-
-                <p className="mb-6">
-                  Rasensamen sind deutlich kostengünstiger als das Verlegen von Rollrasen. Mit hochwertigen Rasensamen
-                  erreichst du ähnliche Ergebnisse – mit mehr Flexibilität und weniger Belastung für deinen Geldbeutel.
-                  Die schnellkeimenden Sorten ermöglichen sogar eine Rasenreparatur während der Wachstumsperiode.
-                </p>
-
-                <h3 className="text-2xl font-bold text-gray-900 mt-10 mb-3">
-                  ✓ Schnelle Keimung – Ergebnisse nach 14 Tagen
-                </h3>
-                <p className="mb-6">
-                  Diese schnellkeimenden Rasensamen keimen deutlich schneller als Standard-Saatgut.
-                  Die spezielle Mischung ist auf maximale Keimgeschwindigkeit optimiert. Du siehst bereits nach
-                  zwei Wochen die ersten grünen Halme sprießen – perfekt für die Rasenreparatur im Sommer und Herbst.
-                </p>
-
-                <h3 className="text-2xl font-bold text-gray-900 mt-10 mb-3">
-                  ✓ Ergiebigkeit bis 80 m² – Großflächige Rasenreparatur
-                </h3>
-                <p className="mb-6">
-                  Die 2 kg Packung Rasensamen reicht bis zu 80 Quadratmetern. Das macht diese Rasensamen
-                  besonders wirtschaftlich. Egal ob kleine Lücken oder größere kahle Stellen – diese Nachsaat-Mischung
-                  schafft es, deinen Rasen wieder dicht und grün zu bekommen.
-                </p>
-
-                <h3 className="text-2xl font-bold text-gray-900 mt-10 mb-3">
-                  ✓ Robust und strapazierfähig
-                </h3>
-                <p className="mb-6">
-                  Der neue Rasen ist nicht nur dicht und sattgrün, sondern auch extrem strapazierfähig.
-                  Spielende Kinder, tobende Hunde und regelmäßiges Betreten – der aus diesen Premium Rasensamen
-                  entstandene Rasen verträgt alles. Eine perfekte Rasenreparatur, die lange hält.
-                </p>
-
-                <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-4">
-                  Anleitung: Rasenreparatur mit schnellkeimenden Rasensamen
-                </h2>
-
-                <ol className="list-decimal pl-6 space-y-4 mb-8">
-                  <li className="text-gray-700">
-                    <strong>Vorbereitung:</strong> Harken Sie die kahlen Stellen auf und lockern Sie den Boden auf.
-                  </li>
-                  <li className="text-gray-700">
-                    <strong>Aussaat:</strong> Verteilen Sie die Rasensamen gleichmäßig. Bei großflächiger Rasenreparatur
-                    verwenden Sie ca. 25g pro Quadratmeter.
-                  </li>
-                  <li className="text-gray-700">
-                    <strong>Bewässerung:</strong> Wässern Sie die Fläche gründlich und halten Sie den Boden
-                    die nächsten 2-3 Wochen gleichmäßig feucht.
-                  </li>
-                  <li className="text-gray-700">
-                    <strong>Keimung:</strong> Nach ca. 14 Tagen beginnt die Keimung. Nach 4-6 Wochen ist der
-                    neue Rasen vollständig etabliert.
-                  </li>
-                </ol>
-
-                <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-4">
-                  Häufig gestellte Fragen zu Rasensamen
-                </h2>
-
-                <div className="space-y-6">
-                  <div className="border-b pb-4">
-                    <h4 className="font-bold text-gray-900 mb-2">❓ Wann ist die beste Zeit für Rasenreparatur?</h4>
-                    <p className="text-gray-700">
-                      Herbstrasen sind ideal. Aber auch Frühjahr und Sommer funktionieren mit schnellkeimenden Rasensamen.
-                      Wichtig: Der Boden sollte warm und feucht sein.
-                    </p>
-                  </div>
-
-                  <div className="border-b pb-4">
-                    <h4 className="font-bold text-gray-900 mb-2">❓ Wie lange hält der neue Rasen?</h4>
-                    <p className="text-gray-700">
-                      Ein aus diesen Premium Rasensamen gewachsener Rasen hält viele Jahre,
-                      wenn Sie ihn regelmäßig mähen und düngen.
-                    </p>
-                  </div>
-
-                  <div className="border-b pb-4">
-                    <h4 className="font-bold text-gray-900 mb-2">❓ Kann ich diese Rasensamen auch bei Regen aussäen?</h4>
-                    <p className="text-gray-700">
-                      Ideal ist leicht feuchter Boden. Starkregen sollten Sie vermeiden,
-                      da die Samen dann weggeschwemmt werden könnten.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-green-100 border border-green-300 rounded-lg p-6 my-8">
-                  <h3 className="font-bold text-gray-900 mb-2">🌱 Garantie & Qualität</h3>
-                  <p className="text-gray-700">
-                    Diese Premium Rasensamen werden in Deutschland hergestellt und erfüllen höchste Qualitätsstandards.
-                    Bei korrekter Anwendung erzielen Sie garantiert sichtbare Ergebnisse.
-                  </p>
-                </div>
-
-                <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-4">
-                  Dein Weg zum perfekten Rasen – Jetzt bestellen!
-                </h2>
-
-                <p className="text-lg mb-8">
-                  Premium Rasensamen schnellkeimend sind die intelligente Wahl für alle,
-                  die ihren Rasen reparieren und verbessern möchten. Mit einer Keimzeit von nur 14 Tagen,
-                  hoher Ergiebigkeit und bewährter Qualität sind diese Rasensamen die perfekte Lösung für dein Gartenprojekt.
-                </p>
-
-                <a
-                  href={`https://amazon.de/dp/${products[0].asin}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition text-lg"
-                >
-                  🛒 Premium Rasensamen jetzt kaufen
-                </a>
-              </article>
+              )}
             </div>
           </div>
         </div>
       </section>
 
+      {/* CTA */}
+      <section className="py-16 px-4 bg-green-50">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Beratung benötigt?
+          </h2>
+          <p className="text-gray-600 mb-6">
+            Unsere Experten helfen dir gerne bei der Auswahl der richtigen Produkte für dein Gartenprojekt.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-block px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded transition"
+          >
+            Kostenlose Beratung anfordern
+          </Link>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-16 mt-24">
+      <footer className="bg-gray-900 text-gray-300 py-16 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
+          <div className="grid md:grid-cols-5 gap-12 mb-12">
             <div>
               <h4 className="text-white font-bold mb-4">GreenGarden</h4>
-              <p className="text-sm">
-                Dein Shop für hochwertige Gartenprodukte und Rasenqualität.
-              </p>
+              <p className="text-sm">Premium Gartenprodukte & Tipps für deinen Garten.</p>
+              <div className="mt-6">
+                <SocialLinks />
+              </div>
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">Navigation</h4>
               <ul className="space-y-2 text-sm">
                 <li><Link href="/" className="hover:text-white transition">Startseite</Link></li>
+                <li><Link href="/blog" className="hover:text-white transition">Blog</Link></li>
                 <li><Link href="/shop" className="hover:text-white transition">Shop</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition">Kontakt</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">Kontakt</h4>
               <p className="text-sm mb-1">📧 info@greengarden.de</p>
-              <p className="text-sm mb-1">📞 +49 123 456789</p>
+              <p className="text-sm">📞 +49 123 456789</p>
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">Rechtliches</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">Datenschutz</a></li>
+                <li><Link href="/datenschutz" className="hover:text-white transition">Datenschutz (DSGVO)</Link></li>
                 <li><a href="#" className="hover:text-white transition">Impressum</a></li>
-                <li><a href="#" className="hover:text-white transition">AGB</a></li>
               </ul>
             </div>
           </div>

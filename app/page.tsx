@@ -38,47 +38,62 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-white">
       <Header />
 
-      {/* Hero Section with Modern Gradient Design */}
-      <section className="relative w-full h-screen max-h-[500px] text-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-600 via-green-700 to-emerald-900"></div>
+      {/* Hero Section — Modern & Clean */}
+      <section className="relative w-full py-28 md:py-40 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
+        {/* Subtle Background Pattern */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-50 rounded-full blur-3xl -mr-48 -mt-48 opacity-60"></div>
+        <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-amber-50 rounded-full blur-3xl opacity-40"></div>
 
-        {/* Decorative Elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-green-500/10 rounded-full blur-3xl -mr-48 -mt-48"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl -ml-48 -mb-48"></div>
-        <div className="absolute top-1/3 left-1/4 w-64 h-64 border border-green-400/20 rounded-full blur-sm"></div>
-
-        <div className="absolute inset-0 flex items-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-2xl">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-white">
-                Ihr Garten ist<br />Ihr Zuhause
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left Column */}
+            <div>
+              <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                Dein Garten.<br />Dein Projekt.<br />Deine Inspiration.
               </h1>
-              <p className="text-lg md:text-xl text-gray-100 mb-10 leading-relaxed font-normal">
-                Hochwertige Gartenprodukte & fachkundige Beratung – für Anfänger und erfahrene Gärtner. Entdecken Sie, wie Sie aus Ihrem Garten eine grüne Wohlfühloase schaffen.
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-xl">
+                Hochwertige Produkte und fachkundige Beratung für deinen perfekten Garten. Ob Anfänger oder Profi — hier findest du alles.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+
+              <div className="flex flex-col sm:flex-row gap-4 mb-12">
                 <Link
-                  href="/offer"
-                  className="px-8 py-3 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition text-center"
+                  href="/shop"
+                  className="px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition shadow-lg hover:shadow-xl"
                 >
-                  Jetzt beraten lassen
+                  Zum Shop →
                 </Link>
                 <Link
                   href="/contact"
-                  className="px-8 py-3 border-2 border-white text-white font-semibold rounded hover:bg-white/10 transition"
+                  className="px-8 py-4 border-2 border-gray-300 hover:border-emerald-600 text-gray-900 font-bold rounded-lg transition"
                 >
-                  Fachberatung anfordern
+                  Beratung anfordern
                 </Link>
               </div>
 
-              <div className="mt-12 flex gap-8 text-sm">
+              <div className="flex flex-wrap gap-8 text-sm">
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">★</span>
-                  <span>4.9/5 Bewertungen</span>
+                  <div>
+                    <p className="font-bold text-gray-900">4.9/5</p>
+                    <p className="text-gray-600">142+ Bewertungen</p>
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">✓</span>
-                  <span>5000+ zufriedene Gärtner</span>
+                  <div>
+                    <p className="font-bold text-gray-900">5000+</p>
+                    <p className="text-gray-600">Zufriedene Kunden</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column — Decorative Element */}
+            <div className="hidden lg:flex items-center justify-center">
+              <div className="relative w-full aspect-square max-w-md">
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-100 to-amber-100 rounded-2xl opacity-20 blur-2xl"></div>
+                <div className="absolute inset-8 border-2 border-emerald-200 rounded-xl bg-white/50 backdrop-blur-sm flex items-center justify-center">
+                  <div className="text-8xl opacity-20">🌿</div>
                 </div>
               </div>
             </div>
@@ -86,42 +101,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust Signals */}
-      <section className="bg-yellow-50 py-6 px-4 sm:px-6 lg:px-8">
+      {/* Trust Signals — Minimal & Professional */}
+      <section className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 border-y border-gray-200">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-6 text-center text-sm">
-            <div>
-              <p className="font-semibold text-gray-900">Kostenloser Versand</p>
-              <p className="text-gray-600">ab 39 EUR*</p>
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <p className="text-3xl font-bold text-emerald-600 mb-2">📦</p>
+              <p className="font-bold text-gray-900 text-lg">DHL Versand</p>
+              <p className="text-gray-600 text-sm mt-1">bis 14:00 Uhr</p>
             </div>
-            <div>
-              <p className="font-semibold text-gray-900">2% Rabatt</p>
-              <p className="text-gray-600">bei Vorkasse</p>
+            <div className="text-center">
+              <p className="text-3xl font-bold text-emerald-600 mb-2">⚡</p>
+              <p className="font-bold text-gray-900 text-lg">1-2 Tage</p>
+              <p className="text-gray-600 text-sm mt-1">Lieferzeit</p>
             </div>
-            <div>
-              <p className="font-semibold text-gray-900">Schneller Versand</p>
-              <p className="text-gray-600">mit DHL</p>
+            <div className="text-center">
+              <p className="text-3xl font-bold text-emerald-600 mb-2">🔒</p>
+              <p className="font-bold text-gray-900 text-lg">Sichere Zahlung</p>
+              <p className="text-gray-600 text-sm mt-1">Alle Methoden</p>
             </div>
-            <div>
-              <p className="font-semibold text-gray-900">Sichere Zahlung</p>
-              <p className="text-gray-600">mit PayPal</p>
+            <div className="text-center">
+              <p className="text-3xl font-bold text-emerald-600 mb-2">↩️</p>
+              <p className="font-bold text-gray-900 text-lg">30 Tage Rückgabe</p>
+              <p className="text-gray-600 text-sm mt-1">Kostenlos</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Featured Products Section */}
-      <section className="py-20 md:py-32 bg-gradient-to-b from-white to-green-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-semibold mb-4">
-              ✨ Unsere Favoriten
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Alles für Deinen Traumgarten
+      <section className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <p className="text-sm font-bold text-emerald-600 uppercase tracking-wide mb-4">Kategorien</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Alles für deinen Garten
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Von professionellen Gartengeräten bis zu hochwertigen Rasensamen – entdecke unser sorgsam kuratiertes Sortiment
+            <p className="text-xl text-gray-600 max-w-2xl">
+              Entdecke unser sorgsam zusammengestelltes Sortiment — von professionellen Werkzeugen bis zu hochwertigen Saatgut.
             </p>
           </div>
 
@@ -139,14 +156,14 @@ export default function Home() {
                 className="group"
               >
                 {product.image ? (
-                  <div className="relative overflow-hidden rounded-xl border-2 border-gray-200 h-72 hover:border-green-500 hover:shadow-2xl transition-all duration-300 bg-white">
+                  <div className="relative overflow-hidden rounded-xl border border-gray-200 h-72 hover:border-emerald-300 hover:shadow-xl transition-all duration-300 bg-white">
                     <Image
                       src={product.image}
                       alt={product.name}
                       fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 group-hover:to-black/60 transition-all duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60 group-hover:to-black/40 transition-all duration-300"></div>
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                       <h3 className="text-xl font-bold mb-2 group-hover:text-green-300 transition">{product.name}</h3>
                       <p className="text-sm text-gray-200 mb-4">{product.description}</p>
@@ -251,42 +268,135 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Trust Signals Row */}
+      <section className="bg-gray-50 border-y border-gray-200 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-sm font-bold text-gray-900 text-center mb-8 uppercase tracking-wide">Zahlungsarten & Versand</p>
+          <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12">
+            {/* DHL */}
+            <div className="flex flex-col items-center">
+              <Image
+                src="/dhl-logo.webp"
+                alt="DHL"
+                width={80}
+                height={40}
+                className="h-10 w-auto mb-2"
+              />
+              <p className="text-xs text-gray-600 text-center">Versand</p>
+            </div>
+
+            {/* PayPal */}
+            <div className="flex flex-col items-center">
+              <Image
+                src="/paypal-logo.svg"
+                alt="PayPal"
+                width={80}
+                height={40}
+                className="h-10 w-auto mb-2"
+              />
+              <p className="text-xs text-gray-600 text-center">Zahlung</p>
+            </div>
+
+            {/* Überweisung */}
+            <div className="flex flex-col items-center">
+              <div className="h-10 mb-2 flex items-center justify-center">
+                <svg className="w-10 h-10 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+              </div>
+              <p className="text-xs text-gray-600 text-center">Überweisung</p>
+            </div>
+
+            {/* Rechnungskauf */}
+            <div className="flex flex-col items-center">
+              <div className="h-10 mb-2 flex items-center justify-center">
+                <svg className="w-10 h-10 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+                  <path d="M16 18H8v-2h8v2z" fill="white"/>
+                  <path d="M16 14H8v-2h8v2z" fill="white"/>
+                </svg>
+              </div>
+              <p className="text-xs text-gray-600 text-center">Rechnung</p>
+            </div>
+
+            {/* Stripe */}
+            <div className="flex flex-col items-center">
+              <div className="h-10 mb-2 flex items-center">
+                <svg className="h-8" viewBox="0 0 120 40" fill="none">
+                  <text x="0" y="30" fontSize="28" fontWeight="bold" fill="#0a1427">Stripe</text>
+                </svg>
+              </div>
+              <p className="text-xs text-gray-600 text-center">Sicher</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-16">
+      <footer className="bg-white border-t border-gray-200 py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-5 gap-12 mb-12">
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
+            {/* Brand Column */}
             <div>
-              <h4 className="text-white font-bold mb-4">GreenGarden</h4>
-              <p className="text-sm leading-relaxed">
-                Premium Gartenprodukte & Tipps für deinen Garten.
+              <h4 className="text-lg font-bold text-gray-900 mb-4">GreenGarden</h4>
+              <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                Premium Gartenprodukte & professionelle Beratung für deinen Traumgarten.
               </p>
-              <div className="mt-6 text-white">
+              <div className="flex gap-4 text-gray-600">
                 <SocialLinks />
               </div>
             </div>
+
+            {/* Shop Column */}
             <div>
-              <h4 className="text-white font-bold mb-4">Navigation</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/" className="hover:text-white transition">Startseite</Link></li>
-                <li><Link href="/blog" className="hover:text-white transition">Blog</Link></li>
-                <li><Link href="/shop" className="hover:text-white transition">Shop</Link></li>
+              <h4 className="text-sm font-bold text-gray-900 mb-6 uppercase tracking-wide">Shop</h4>
+              <ul className="space-y-3 text-sm">
+                <li><Link href="/shop" className="text-gray-600 hover:text-emerald-700 transition font-medium">Alle Produkte</Link></li>
+                <li><Link href="/shop?category=Rasensamen" className="text-gray-600 hover:text-emerald-700 transition font-medium">Rasensamen</Link></li>
+                <li><Link href="/shop?category=Poolpflege" className="text-gray-600 hover:text-emerald-700 transition font-medium">Poolpflege</Link></li>
+                <li><Link href="/shop?category=Wassertests" className="text-gray-600 hover:text-emerald-700 transition font-medium">Wassertests</Link></li>
               </ul>
             </div>
+
+            {/* Unternehmen Column */}
             <div>
-              <h4 className="text-white font-bold mb-4">Kontakt</h4>
-              <p className="text-sm mb-1">📧 info@greengarden.de</p>
-              <p className="text-sm">📞 +49 123 456789</p>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Rechtliches</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/datenschutz" className="hover:text-white transition">Datenschutz (DSGVO)</Link></li>
-                <li><a href="#" className="hover:text-white transition">Impressum</a></li>
+              <h4 className="text-sm font-bold text-gray-900 mb-6 uppercase tracking-wide">Unternehmen</h4>
+              <ul className="space-y-3 text-sm">
+                <li><Link href="/" className="text-gray-600 hover:text-emerald-700 transition font-medium">Über uns</Link></li>
+                <li><Link href="/blog" className="text-gray-600 hover:text-emerald-700 transition font-medium">Blog & Tipps</Link></li>
+                <li><Link href="/contact" className="text-gray-600 hover:text-emerald-700 transition font-medium">Kontakt</Link></li>
+                <li><Link href="/offer" className="text-gray-600 hover:text-emerald-700 transition font-medium">Beratung</Link></li>
               </ul>
+            </div>
+
+            {/* Kontakt Column */}
+            <div>
+              <h4 className="text-sm font-bold text-gray-900 mb-6 uppercase tracking-wide">Kontakt</h4>
+              <div className="space-y-3 text-sm">
+                <div>
+                  <p className="text-gray-600 font-medium">Email</p>
+                  <a href="mailto:info@greengarden.de" className="text-emerald-700 hover:text-emerald-800 transition">info@greengarden.de</a>
+                </div>
+                <div>
+                  <p className="text-gray-600 font-medium">Telefon</p>
+                  <a href="tel:+49123456789" className="text-emerald-700 hover:text-emerald-800 transition">+49 123 456789</a>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="border-t border-gray-700 pt-8 text-center text-sm">
-            <p>&copy; 2024 GreenGarden. Alle Rechte vorbehalten.</p>
+
+          {/* Divider */}
+          <div className="border-t border-gray-200 pt-8 mt-8">
+            <div className="grid md:grid-cols-2 gap-8 text-sm text-gray-600">
+              <div>
+                <p>&copy; 2026 GreenGarden GmbH. Alle Rechte vorbehalten.</p>
+              </div>
+              <div className="md:text-right space-x-6">
+                <Link href="/datenschutz" className="hover:text-emerald-700 transition">Datenschutz</Link>
+                <a href="#" className="hover:text-emerald-700 transition">Impressum</a>
+                <a href="#" className="hover:text-emerald-700 transition">AGB</a>
+              </div>
+            </div>
           </div>
         </div>
       </footer>

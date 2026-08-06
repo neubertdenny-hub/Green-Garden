@@ -27,19 +27,19 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
-          <Link href="/" className="text-gray-600 hover:text-green-700 transition">
+          <Link href="/" className="text-gray-600 hover:text-emerald-700 transition font-medium">
             Startseite
           </Link>
-          <Link href="/#products" className="text-gray-600 hover:text-green-700 transition">
+          <Link href="/#products" className="text-gray-600 hover:text-emerald-700 transition font-medium">
             Produkte
           </Link>
-          <Link href="/blog" className="text-gray-600 hover:text-green-700 transition">
+          <Link href="/blog" className="text-gray-600 hover:text-emerald-700 transition font-medium">
             Blog
           </Link>
-          <Link href="/contact" className="text-gray-600 hover:text-green-700 transition">
+          <Link href="/contact" className="text-gray-600 hover:text-emerald-700 transition font-medium">
             Kontakt
           </Link>
-          <Link href="/offer" className="text-gray-600 hover:text-green-700 transition">
+          <Link href="/offer" className="text-gray-600 hover:text-emerald-700 transition font-medium">
             Angebot
           </Link>
         </nav>
@@ -47,18 +47,18 @@ export default function Header() {
         <div className="flex items-center gap-4">
           {isAdmin ? (
             <>
-              <Link href="/dashboard" className="px-4 py-2 text-green-700 hover:bg-green-50 rounded-lg transition">
+              <Link href="/dashboard" className="px-4 py-2 text-emerald-700 hover:bg-emerald-50 rounded-lg transition font-medium">
                 Dashboard
               </Link>
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition text-gray-800"
+                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition text-gray-800 font-medium"
               >
                 Logout
               </button>
             </>
           ) : (
-            <Link href="/login" className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white rounded-lg transition">
+            <Link href="/login" className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg transition font-bold">
               Admin Login
             </Link>
           )}
